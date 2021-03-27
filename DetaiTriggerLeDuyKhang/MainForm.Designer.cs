@@ -70,6 +70,8 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.InputCTPNPanel = new System.Windows.Forms.Panel();
+            this.sP_MaVTChuaNhapComboBox = new System.Windows.Forms.ComboBox();
+            this.sP_MaVTChuaNhapBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mAVTTextBox1 = new System.Windows.Forms.TextBox();
             this.cT_PHATSINHBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pHATSINHBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -104,6 +106,7 @@
             this.huyPNBth = new System.Windows.Forms.Button();
             this.luuPNBtn = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.huyPXBtn = new System.Windows.Forms.Button();
             this.refreshPXBtn = new System.Windows.Forms.Button();
             this.ctpxInputPanel = new System.Windows.Forms.Panel();
             this.dONGIATextBox1 = new System.Windows.Forms.TextBox();
@@ -116,6 +119,9 @@
             this.nGAYDateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.pHIEUTextBox2 = new System.Windows.Forms.TextBox();
             this.ctpxActionPanel = new System.Windows.Forms.Panel();
+            this.suaCTPXBtn = new System.Windows.Forms.Button();
+            this.xoaCTPXBtn = new System.Windows.Forms.Button();
+            this.themCTPXBtn = new System.Windows.Forms.Button();
             this.cT_PHATSINHDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -132,15 +138,13 @@
             this.themPXBtn = new System.Windows.Forms.Button();
             this.suaPXBtn = new System.Windows.Forms.Button();
             this.luuPXBtn = new System.Windows.Forms.Button();
+            this.cT_PHATSINHBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.vatTuTableAdapter = new DetaiTriggerLeDuyKhang.QLVTDataSetTableAdapters.VatTuTableAdapter();
             this.tableAdapterManager = new DetaiTriggerLeDuyKhang.QLVTDataSetTableAdapters.TableAdapterManager();
             this.cT_PHATSINHTableAdapter = new DetaiTriggerLeDuyKhang.QLVTDataSetTableAdapters.CT_PHATSINHTableAdapter();
             this.pHATSINHTableAdapter = new DetaiTriggerLeDuyKhang.QLVTDataSetTableAdapters.PHATSINHTableAdapter();
-            this.cT_PHATSINHBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.huyPXBtn = new System.Windows.Forms.Button();
-            this.themCTPXBtn = new System.Windows.Forms.Button();
-            this.xoaCTPXBtn = new System.Windows.Forms.Button();
-            this.suaCTPXBtn = new System.Windows.Forms.Button();
+            this.sP_MaVTChuaNhapTableAdapter = new DetaiTriggerLeDuyKhang.QLVTDataSetTableAdapters.SP_MaVTChuaNhapTableAdapter();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             mAVTLabel = new System.Windows.Forms.Label();
             tENVTLabel = new System.Windows.Forms.Label();
             dVTLabel = new System.Windows.Forms.Label();
@@ -168,6 +172,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vatTuDataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.InputCTPNPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sP_MaVTChuaNhapBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cT_PHATSINHBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pHATSINHBindingSource)).BeginInit();
             this.inputPNPanel.SuspendLayout();
@@ -373,7 +378,7 @@
             this.VatTuTab.Location = new System.Drawing.Point(12, 22);
             this.VatTuTab.Name = "VatTuTab";
             this.VatTuTab.SelectedIndex = 0;
-            this.VatTuTab.Size = new System.Drawing.Size(1078, 485);
+            this.VatTuTab.Size = new System.Drawing.Size(1146, 485);
             this.VatTuTab.TabIndex = 0;
             this.VatTuTab.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -398,7 +403,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1070, 456);
+            this.tabPage1.Size = new System.Drawing.Size(1138, 456);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vat Tu";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -470,6 +475,7 @@
             this.sOLUONGTONTextBox.Name = "sOLUONGTONTextBox";
             this.sOLUONGTONTextBox.Size = new System.Drawing.Size(100, 22);
             this.sOLUONGTONTextBox.TabIndex = 8;
+            this.sOLUONGTONTextBox.TextChanged += new System.EventHandler(this.sOLUONGTONTextBox_TextChanged);
             // 
             // vatTuBindingSource
             // 
@@ -567,7 +573,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1070, 456);
+            this.tabPage2.Size = new System.Drawing.Size(1138, 456);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Phieu Nhap";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -575,6 +581,7 @@
             // 
             // InputCTPNPanel
             // 
+            this.InputCTPNPanel.Controls.Add(this.sP_MaVTChuaNhapComboBox);
             this.InputCTPNPanel.Controls.Add(this.mAVTTextBox1);
             this.InputCTPNPanel.Controls.Add(this.pHIEUTextBox1);
             this.InputCTPNPanel.Controls.Add(pHIEULabel1);
@@ -585,15 +592,32 @@
             this.InputCTPNPanel.Controls.Add(sOLUONGLabel);
             this.InputCTPNPanel.Location = new System.Drawing.Point(605, 321);
             this.InputCTPNPanel.Name = "InputCTPNPanel";
-            this.InputCTPNPanel.Size = new System.Drawing.Size(449, 100);
+            this.InputCTPNPanel.Size = new System.Drawing.Size(530, 100);
             this.InputCTPNPanel.TabIndex = 30;
+            // 
+            // sP_MaVTChuaNhapComboBox
+            // 
+            this.sP_MaVTChuaNhapComboBox.DataSource = this.sP_MaVTChuaNhapBindingSource;
+            this.sP_MaVTChuaNhapComboBox.DisplayMember = "TENVT";
+            this.sP_MaVTChuaNhapComboBox.FormattingEnabled = true;
+            this.sP_MaVTChuaNhapComboBox.Location = new System.Drawing.Point(422, 11);
+            this.sP_MaVTChuaNhapComboBox.Name = "sP_MaVTChuaNhapComboBox";
+            this.sP_MaVTChuaNhapComboBox.Size = new System.Drawing.Size(82, 24);
+            this.sP_MaVTChuaNhapComboBox.TabIndex = 25;
+            this.sP_MaVTChuaNhapComboBox.ValueMember = "MAVT";
+            this.sP_MaVTChuaNhapComboBox.SelectedIndexChanged += new System.EventHandler(this.sP_MaVTChuaNhapComboBox_SelectedIndexChanged_1);
+            // 
+            // sP_MaVTChuaNhapBindingSource
+            // 
+            this.sP_MaVTChuaNhapBindingSource.DataMember = "SP_MaVTChuaNhap";
+            this.sP_MaVTChuaNhapBindingSource.DataSource = this.qLVTDataSet;
             // 
             // mAVTTextBox1
             // 
             this.mAVTTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cT_PHATSINHBindingSource, "MAVT", true));
             this.mAVTTextBox1.Location = new System.Drawing.Point(323, 11);
             this.mAVTTextBox1.Name = "mAVTTextBox1";
-            this.mAVTTextBox1.Size = new System.Drawing.Size(100, 22);
+            this.mAVTTextBox1.Size = new System.Drawing.Size(80, 22);
             this.mAVTTextBox1.TabIndex = 21;
             // 
             // cT_PHATSINHBindingSource
@@ -709,6 +733,7 @@
             this.pHATSINHDataGridView.RowTemplate.Height = 24;
             this.pHATSINHDataGridView.Size = new System.Drawing.Size(461, 224);
             this.pHATSINHDataGridView.TabIndex = 0;
+            this.pHATSINHDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pHATSINHDataGridView_CellContentClick);
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -908,10 +933,20 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1070, 456);
+            this.tabPage3.Size = new System.Drawing.Size(1138, 456);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Phieu Xuat";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // huyPXBtn
+            // 
+            this.huyPXBtn.Location = new System.Drawing.Point(664, 423);
+            this.huyPXBtn.Name = "huyPXBtn";
+            this.huyPXBtn.Size = new System.Drawing.Size(75, 23);
+            this.huyPXBtn.TabIndex = 26;
+            this.huyPXBtn.Text = "Huy";
+            this.huyPXBtn.UseVisualStyleBackColor = true;
+            this.huyPXBtn.Click += new System.EventHandler(this.huyPXBtn_Click);
             // 
             // refreshPXBtn
             // 
@@ -925,6 +960,7 @@
             // 
             // ctpxInputPanel
             // 
+            this.ctpxInputPanel.Controls.Add(this.comboBox1);
             this.ctpxInputPanel.Controls.Add(dONGIALabel1);
             this.ctpxInputPanel.Controls.Add(this.dONGIATextBox1);
             this.ctpxInputPanel.Controls.Add(sOLUONGLabel1);
@@ -935,7 +971,7 @@
             this.ctpxInputPanel.Controls.Add(this.pHIEUTextBox3);
             this.ctpxInputPanel.Location = new System.Drawing.Point(657, 317);
             this.ctpxInputPanel.Name = "ctpxInputPanel";
-            this.ctpxInputPanel.Size = new System.Drawing.Size(391, 100);
+            this.ctpxInputPanel.Size = new System.Drawing.Size(475, 100);
             this.ctpxInputPanel.TabIndex = 25;
             // 
             // dONGIATextBox1
@@ -959,7 +995,7 @@
             this.mAVTTextBox2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.cT_PHATSINHBindingSource, "MAVT", true));
             this.mAVTTextBox2.Location = new System.Drawing.Point(286, 22);
             this.mAVTTextBox2.Name = "mAVTTextBox2";
-            this.mAVTTextBox2.Size = new System.Drawing.Size(100, 22);
+            this.mAVTTextBox2.Size = new System.Drawing.Size(58, 22);
             this.mAVTTextBox2.TabIndex = 21;
             // 
             // pHIEUTextBox3
@@ -1008,6 +1044,7 @@
             this.nGAYDateTimePicker1.Name = "nGAYDateTimePicker1";
             this.nGAYDateTimePicker1.Size = new System.Drawing.Size(200, 22);
             this.nGAYDateTimePicker1.TabIndex = 13;
+            this.nGAYDateTimePicker1.ValueChanged += new System.EventHandler(this.nGAYDateTimePicker1_ValueChanged);
             // 
             // pHIEUTextBox2
             // 
@@ -1027,6 +1064,36 @@
             this.ctpxActionPanel.Name = "ctpxActionPanel";
             this.ctpxActionPanel.Size = new System.Drawing.Size(453, 298);
             this.ctpxActionPanel.TabIndex = 23;
+            // 
+            // suaCTPXBtn
+            // 
+            this.suaCTPXBtn.Location = new System.Drawing.Point(295, 13);
+            this.suaCTPXBtn.Name = "suaCTPXBtn";
+            this.suaCTPXBtn.Size = new System.Drawing.Size(98, 23);
+            this.suaCTPXBtn.TabIndex = 4;
+            this.suaCTPXBtn.Text = "Sua CTPX";
+            this.suaCTPXBtn.UseVisualStyleBackColor = true;
+            this.suaCTPXBtn.Click += new System.EventHandler(this.suaCTPXBtn_Click);
+            // 
+            // xoaCTPXBtn
+            // 
+            this.xoaCTPXBtn.Location = new System.Drawing.Point(177, 13);
+            this.xoaCTPXBtn.Name = "xoaCTPXBtn";
+            this.xoaCTPXBtn.Size = new System.Drawing.Size(94, 23);
+            this.xoaCTPXBtn.TabIndex = 3;
+            this.xoaCTPXBtn.Text = "Xoa CTPX";
+            this.xoaCTPXBtn.UseVisualStyleBackColor = true;
+            this.xoaCTPXBtn.Click += new System.EventHandler(this.xoaCTPXBtn_Click);
+            // 
+            // themCTPXBtn
+            // 
+            this.themCTPXBtn.Location = new System.Drawing.Point(48, 14);
+            this.themCTPXBtn.Name = "themCTPXBtn";
+            this.themCTPXBtn.Size = new System.Drawing.Size(107, 23);
+            this.themCTPXBtn.TabIndex = 2;
+            this.themCTPXBtn.Text = "Them CTPX";
+            this.themCTPXBtn.UseVisualStyleBackColor = true;
+            this.themCTPXBtn.Click += new System.EventHandler(this.themCTPXBtn_Click);
             // 
             // cT_PHATSINHDataGridView
             // 
@@ -1053,24 +1120,28 @@
             this.dataGridViewTextBoxColumn15.DataPropertyName = "PHIEU";
             this.dataGridViewTextBoxColumn15.HeaderText = "PHIEU";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn16
             // 
             this.dataGridViewTextBoxColumn16.DataPropertyName = "MAVT";
             this.dataGridViewTextBoxColumn16.HeaderText = "MAVT";
             this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn17
             // 
             this.dataGridViewTextBoxColumn17.DataPropertyName = "SOLUONG";
             this.dataGridViewTextBoxColumn17.HeaderText = "SOLUONG";
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            this.dataGridViewTextBoxColumn17.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn18
             // 
             this.dataGridViewTextBoxColumn18.DataPropertyName = "DONGIA";
             this.dataGridViewTextBoxColumn18.HeaderText = "DONGIA";
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.dataGridViewTextBoxColumn18.ReadOnly = true;
             // 
             // PXActionPanel
             // 
@@ -1103,36 +1174,42 @@
             this.pHATSINHDataGridView1.RowTemplate.Height = 24;
             this.pHATSINHDataGridView1.Size = new System.Drawing.Size(504, 220);
             this.pHATSINHDataGridView1.TabIndex = 0;
+            this.pHATSINHDataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pHATSINHDataGridView1_CellContentClick);
             // 
             // dataGridViewTextBoxColumn10
             // 
             this.dataGridViewTextBoxColumn10.DataPropertyName = "PHIEU";
             this.dataGridViewTextBoxColumn10.HeaderText = "PHIEU";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn11
             // 
             this.dataGridViewTextBoxColumn11.DataPropertyName = "NGAY";
             this.dataGridViewTextBoxColumn11.HeaderText = "NGAY";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn12
             // 
             this.dataGridViewTextBoxColumn12.DataPropertyName = "LOAI";
             this.dataGridViewTextBoxColumn12.HeaderText = "LOAI";
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "HOTENKH";
             this.dataGridViewTextBoxColumn13.HeaderText = "HOTENKH";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn14
             // 
             this.dataGridViewTextBoxColumn14.DataPropertyName = "MANV";
             this.dataGridViewTextBoxColumn14.HeaderText = "MANV";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
             // 
             // xoaPXBtn
             // 
@@ -1174,6 +1251,11 @@
             this.luuPXBtn.UseVisualStyleBackColor = true;
             this.luuPXBtn.Click += new System.EventHandler(this.luuPXBtn_Click);
             // 
+            // cT_PHATSINHBindingSource1
+            // 
+            this.cT_PHATSINHBindingSource1.DataMember = "FK_CT_PHATSINH_VatTu";
+            this.cT_PHATSINHBindingSource1.DataSource = this.vatTuBindingSource;
+            // 
             // vatTuTableAdapter
             // 
             this.vatTuTableAdapter.ClearBeforeFill = true;
@@ -1194,50 +1276,21 @@
             // 
             this.pHATSINHTableAdapter.ClearBeforeFill = true;
             // 
-            // cT_PHATSINHBindingSource1
+            // sP_MaVTChuaNhapTableAdapter
             // 
-            this.cT_PHATSINHBindingSource1.DataMember = "FK_CT_PHATSINH_VatTu";
-            this.cT_PHATSINHBindingSource1.DataSource = this.vatTuBindingSource;
+            this.sP_MaVTChuaNhapTableAdapter.ClearBeforeFill = true;
             // 
-            // huyPXBtn
+            // comboBox1
             // 
-            this.huyPXBtn.Location = new System.Drawing.Point(664, 423);
-            this.huyPXBtn.Name = "huyPXBtn";
-            this.huyPXBtn.Size = new System.Drawing.Size(75, 23);
-            this.huyPXBtn.TabIndex = 26;
-            this.huyPXBtn.Text = "Huy";
-            this.huyPXBtn.UseVisualStyleBackColor = true;
-            this.huyPXBtn.Click += new System.EventHandler(this.huyPXBtn_Click);
-            // 
-            // themCTPXBtn
-            // 
-            this.themCTPXBtn.Location = new System.Drawing.Point(48, 14);
-            this.themCTPXBtn.Name = "themCTPXBtn";
-            this.themCTPXBtn.Size = new System.Drawing.Size(94, 23);
-            this.themCTPXBtn.TabIndex = 2;
-            this.themCTPXBtn.Text = "Them CTPX";
-            this.themCTPXBtn.UseVisualStyleBackColor = true;
-            this.themCTPXBtn.Click += new System.EventHandler(this.themCTPXBtn_Click);
-            // 
-            // xoaCTPXBtn
-            // 
-            this.xoaCTPXBtn.Location = new System.Drawing.Point(177, 13);
-            this.xoaCTPXBtn.Name = "xoaCTPXBtn";
-            this.xoaCTPXBtn.Size = new System.Drawing.Size(94, 23);
-            this.xoaCTPXBtn.TabIndex = 3;
-            this.xoaCTPXBtn.Text = "Xoa CTPX";
-            this.xoaCTPXBtn.UseVisualStyleBackColor = true;
-            this.xoaCTPXBtn.Click += new System.EventHandler(this.xoaCTPXBtn_Click);
-            // 
-            // suaCTPXBtn
-            // 
-            this.suaCTPXBtn.Location = new System.Drawing.Point(295, 13);
-            this.suaCTPXBtn.Name = "suaCTPXBtn";
-            this.suaCTPXBtn.Size = new System.Drawing.Size(98, 23);
-            this.suaCTPXBtn.TabIndex = 4;
-            this.suaCTPXBtn.Text = "Sua CTPX";
-            this.suaCTPXBtn.UseVisualStyleBackColor = true;
-            this.suaCTPXBtn.Click += new System.EventHandler(this.suaCTPXBtn_Click);
+            this.comboBox1.DataSource = this.sP_MaVTChuaNhapBindingSource;
+            this.comboBox1.DisplayMember = "TENVT";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(350, 21);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(99, 24);
+            this.comboBox1.TabIndex = 26;
+            this.comboBox1.ValueMember = "MAVT";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -1257,6 +1310,7 @@
             this.tabPage2.ResumeLayout(false);
             this.InputCTPNPanel.ResumeLayout(false);
             this.InputCTPNPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sP_MaVTChuaNhapBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cT_PHATSINHBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pHATSINHBindingSource)).EndInit();
             this.inputPNPanel.ResumeLayout(false);
@@ -1373,5 +1427,9 @@
         private System.Windows.Forms.Button suaCTPXBtn;
         private System.Windows.Forms.Button xoaCTPXBtn;
         private System.Windows.Forms.Button themCTPXBtn;
+        private System.Windows.Forms.BindingSource sP_MaVTChuaNhapBindingSource;
+        private QLVTDataSetTableAdapters.SP_MaVTChuaNhapTableAdapter sP_MaVTChuaNhapTableAdapter;
+        private System.Windows.Forms.ComboBox sP_MaVTChuaNhapComboBox;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

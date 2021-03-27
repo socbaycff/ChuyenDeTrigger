@@ -16,6 +16,11 @@ namespace DetaiTriggerLeDuyKhang
         {
             InitializeComponent();
         }
+        bool isInsertVT = false;
+        bool isInsertPN = false;
+        bool isInsertCTPN = false;
+        bool isInsertPX = false;
+        bool isInsertCTPX = false;
 
         private void vatTuBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -33,8 +38,10 @@ namespace DetaiTriggerLeDuyKhang
             this.pHATSINHTableAdapter.Fill(this.qLVTDataSet.PHATSINH);
             // TODO: This line of code loads data into the 'qLVTDataSet.VatTu' table. You can move, or remove it, as needed.
             this.vatTuTableAdapter.Fill(this.qLVTDataSet.VatTu);
-
+            
             viewUIVT();
+            sP_MaVTChuaNhapComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
 
         }
 
@@ -225,11 +232,50 @@ namespace DetaiTriggerLeDuyKhang
         {
             addUIVT();
             vatTuBindingSource.AddNew();
+            isInsertVT = true;
 
         }
 
         private void luuVtBtn_Click(object sender, EventArgs e)
         {
+            if (tENVTTextBox.Text.Trim() == "")
+            {
+                MessageBox.Show("Tên vật tư không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mAVTTextBox.Focus();
+                return;
+            }
+            if (dVTTextBox.Text.Trim() == "")
+            {
+                MessageBox.Show("Đơn vị tính không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mAVTTextBox.Focus();
+                return;
+            }
+            if (sOLUONGTONTextBox.Text.Trim() == "") 
+            {
+                MessageBox.Show("Số lượng tồn không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mAVTTextBox.Focus();
+                return;
+            }
+
+          
+            if (isInsertVT) {
+                if (mAVTTextBox.Text.Trim() == "")
+                {
+                    MessageBox.Show("Ma vật tư không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mAVTTextBox.Focus();
+                    return;
+                }
+
+                if (vatTuBindingSource.Find("MAVT", mAVTTextBox.Text.Trim()) != -1)
+                {
+                    MessageBox.Show("Mã VT đã tồn tại", "Sai thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mAVTTextBox.Focus();
+                    return;
+                }
+
+            }
+            
+
             vatTuBindingSource.EndEdit();
             vatTuBindingSource.ResetCurrentItem();
             this.vatTuTableAdapter.Update(this.qLVTDataSet.VatTu); // xuong db
@@ -239,6 +285,7 @@ namespace DetaiTriggerLeDuyKhang
         private void suaVTBtn_Click(object sender, EventArgs e)
         {
             editUIVT();
+            isInsertVT = false;
         }
 
         private void xoaVTBtn_Click(object sender, EventArgs e)
@@ -317,11 +364,67 @@ namespace DetaiTriggerLeDuyKhang
             addUIPN();
             pHATSINHBindingSource.AddNew();
             ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["LOAI"] = "N";
+            nGAYDateTimePicker.Value = DateTime.Now;
+            isInsertPN = true;
         }
 
         private void luuPNBtn_Click(object sender, EventArgs e)
         {
+            if (nGAYDateTimePicker.Text.Trim() == "")
+            {
+                MessageBox.Show("Ngày không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nGAYDateTimePicker.Focus();
+                return;
+            }
+            if (hOTENKHTextBox.Text.Trim() == "")
+            {
+                MessageBox.Show("Họ tên khách không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                hOTENKHTextBox.Focus();
+                return;
+            }
+            if (mANVTextBox.Text.Trim() == "")
+            {
+                MessageBox.Show("Mã nhân viên không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mANVTextBox.Focus();
+                return;
+            }
 
+            if (isInsertPN)
+            {
+                if (pHIEUTextBox.Text.Trim() == "")
+                {
+                    MessageBox.Show("Mã phiếu không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    pHIEUTextBox.Focus();
+                    return;
+                }
+
+                if (pHATSINHBindingSource.Find("PHIEU", pHIEUTextBox.Text.Trim()) != -1)
+                {
+                    MessageBox.Show("Mã phiếu đã tồn tại", "Sai thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    pHIEUTextBox.Focus();
+                    return;
+                }
+            }
+            else {
+                if (cT_PHATSINHBindingSource.Count > 0) // chi kt khi da co ct
+                {
+                    if (sOLUONGTextBox.Text.Trim() == "")
+                    {
+                        MessageBox.Show("Số lượng không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        sOLUONGTextBox.Focus();
+                        return;
+                    }
+                    if (dONGIATextBox.Text.Trim() == "")
+                    {
+                        MessageBox.Show("Đơn giá không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dONGIATextBox.Focus();
+                        return;
+                    }
+                }
+                    
+            }
+
+           
             cT_PHATSINHBindingSource.EndEdit();
             cT_PHATSINHBindingSource.ResetCurrentItem();
             this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH); // xuong db
@@ -339,6 +442,7 @@ namespace DetaiTriggerLeDuyKhang
         private void suaPNBtn_Click(object sender, EventArgs e)
         {
             editUIPN();
+            isInsertPN = false;
         }
 
         private void xoaPNBtn_Click(object sender, EventArgs e)
@@ -403,6 +507,7 @@ namespace DetaiTriggerLeDuyKhang
             pHIEUTextBox1.Enabled = true;
             mAVTTextBox1.Enabled = true;
             InputCTPNPanel.Enabled = false;
+            sP_MaVTChuaNhapComboBox.Enabled = false;
         }
         private void editUICTPN()
         {
@@ -414,7 +519,7 @@ namespace DetaiTriggerLeDuyKhang
             InputCTPNPanel.Enabled = true;
             pHIEUTextBox1.Enabled = false;
             mAVTTextBox1.Enabled = false;
-            
+          
         }
 
         private void addUICTPN()
@@ -426,19 +531,34 @@ namespace DetaiTriggerLeDuyKhang
             PNActionPanel.Enabled = false;
             InputCTPNPanel.Enabled = true;
             pHIEUTextBox1.Enabled = false;
+            mAVTTextBox1.Enabled = false;
+            sP_MaVTChuaNhapComboBox.Enabled = true;
         }
 
         private void themCTPNBtn_Click(object sender, EventArgs e)
         {
+           
+            String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
+            this.sP_MaVTChuaNhapTableAdapter.Fill(this.qLVTDataSet.SP_MaVTChuaNhap, phieu);
+            // kiem tra con vat tu trong cho phieu hay k
+            //khong thi return
+            // con thi di tiep
+            if (sP_MaVTChuaNhapBindingSource.Count <= 0) {
+                MessageBox.Show("Khong con vat tu nao chua tao cho phieu nay");
+                return;
+                }
             addUICTPN();
             cT_PHATSINHBindingSource.AddNew();
-            String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
+            sP_MaVTChuaNhapComboBox.SelectedIndex = 0;
             ((DataRowView)cT_PHATSINHBindingSource[cT_PHATSINHBindingSource.Position])["PHIEU"] = phieu;
+            isInsertCTPN = true;
+           
         }
 
         private void suaCTPNBtn_Click(object sender, EventArgs e)
         {
             editUICTPN();
+            isInsertCTPN = false;
         }
 
         private void xoaCTPNBtn_Click(object sender, EventArgs e)
@@ -451,6 +571,7 @@ namespace DetaiTriggerLeDuyKhang
                     delMaNV = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
                     cT_PHATSINHBindingSource.RemoveCurrent();
                     this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH);
+                    checkCountPN();
                 }
                 catch (Exception exception)
                 {
@@ -513,10 +634,65 @@ namespace DetaiTriggerLeDuyKhang
             addUIPX();
             pHATSINHBindingSource.AddNew();
             ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["LOAI"] = "X";
+            isInsertPX = true;
+            nGAYDateTimePicker1.Value = DateTime.Now;
         }
 
         private void luuPXBtn_Click(object sender, EventArgs e)
         {
+            if (nGAYDateTimePicker1.Text.Trim() == "")
+            {
+                MessageBox.Show("Ngày không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nGAYDateTimePicker.Focus();
+                return;
+            }
+            if (hOTENKHTextBox1.Text.Trim() == "")
+            {
+                MessageBox.Show("Họ tên khách không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                hOTENKHTextBox.Focus();
+                return;
+            }
+            if (mANVTextBox1.Text.Trim() == "")
+            {
+                MessageBox.Show("Mã nhân viên không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mANVTextBox.Focus();
+                return;
+            }
+
+            if (isInsertPX)
+            {
+                if (pHIEUTextBox2.Text.Trim() == "")
+                {
+                    MessageBox.Show("Mã phiếu không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    pHIEUTextBox2.Focus();
+                    return;
+                }
+
+                if (pHATSINHBindingSource.Find("PHIEU", pHIEUTextBox2.Text.Trim()) != -1)
+                {
+                    MessageBox.Show("Mã phiếu đã tồn tại", "Sai thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    pHIEUTextBox2.Focus();
+                    return;
+                }
+            }
+            else
+            {
+                if (cT_PHATSINHBindingSource.Count > 0) {
+                    if (sOLUONGTextBox1.Text.Trim() == "")
+                    {
+                        MessageBox.Show("Số lượng không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        sOLUONGTextBox1.Focus();
+                        return;
+                    }
+                    if (dONGIATextBox1.Text.Trim() == "")
+                    {
+                        MessageBox.Show("Đơn giá không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dONGIATextBox1.Focus();
+                        return;
+                    }
+                }
+                
+            }
             cT_PHATSINHBindingSource.EndEdit();
             cT_PHATSINHBindingSource.ResetCurrentItem();
             this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH); // xuong db
@@ -542,6 +718,7 @@ namespace DetaiTriggerLeDuyKhang
         private void suaPXBtn_Click(object sender, EventArgs e)
         {
             editUIPX();
+            isInsertPX = false;
         }
 
         private void xoaPXBtn_Click(object sender, EventArgs e)
@@ -581,6 +758,7 @@ namespace DetaiTriggerLeDuyKhang
             pHIEUTextBox3.Enabled = true;
             mAVTTextBox2.Enabled = true;
             ctpxInputPanel.Enabled = false;
+            comboBox1.Enabled = false;
         }
         private void editUICTPX()
         {
@@ -604,14 +782,26 @@ namespace DetaiTriggerLeDuyKhang
             PXActionPanel.Enabled = false;
             ctpxInputPanel.Enabled = true;
             pHIEUTextBox3.Enabled = false;
+            mAVTTextBox2.Enabled = false;
+            comboBox1.Enabled = true;
         }
 
         private void themCTPXBtn_Click(object sender, EventArgs e)
         {
+            String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
+            this.sP_MaVTChuaNhapTableAdapter.Fill(this.qLVTDataSet.SP_MaVTChuaNhap, phieu);
+            // kiem tra con vat tu trong cho phieu hay k
+            //khong thi return
+            // con thi di tiep
+            if (sP_MaVTChuaNhapBindingSource.Count <= 0)
+            {
+                MessageBox.Show("Khong con vat tu nao chua tao cho phieu nay");
+                return;
+            }
             addUICTPX();
             cT_PHATSINHBindingSource.AddNew();
-            String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
             ((DataRowView)cT_PHATSINHBindingSource[cT_PHATSINHBindingSource.Position])["PHIEU"] = phieu;
+           
         }
 
         private void xoaCTPXBtn_Click(object sender, EventArgs e)
@@ -624,6 +814,7 @@ namespace DetaiTriggerLeDuyKhang
                     delMaNV = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
                     cT_PHATSINHBindingSource.RemoveCurrent();
                     this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH);
+                    checkCountPX();
                 }
                 catch (Exception exception)
                 {
@@ -638,6 +829,101 @@ namespace DetaiTriggerLeDuyKhang
         private void suaCTPXBtn_Click(object sender, EventArgs e)
         {
             editUICTPX();
+            String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
+            this.sP_MaVTChuaNhapTableAdapter.Fill(qLVTDataSet.SP_MaVTChuaNhap, phieu);
         }
+
+        private void sOLUONGTONTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(sOLUONGTONTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                sOLUONGTONTextBox.Text = sOLUONGTONTextBox.Text.Remove(sOLUONGTONTextBox.Text.Length - 1);
+            }
+        }
+
+        //private void fillToolStripButton_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        this.sP_MaVTChuaNhapTableAdapter.Fill(this.qLVTDataSet.SP_MaVTChuaNhap, pNToolStripTextBox.Text);
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        System.Windows.Forms.MessageBox.Show(ex.Message);
+        //    }
+
+        //}
+
+        //private void sP_MaVTChuaNhapComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    mAVTTextBox1.Text = sP_MaVTChuaNhapComboBox.SelectedValue.ToString();
+        //}
+
+        private void sP_MaVTChuaNhapComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+           
+            try
+            {
+                mAVTTextBox1.Text = sP_MaVTChuaNhapComboBox.SelectedValue.ToString();
+            }
+            catch (Exception nullRef)
+            {
+                return;
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                mAVTTextBox2.Text = sP_MaVTChuaNhapComboBox.SelectedValue.ToString();
+            }
+            catch (Exception nullRef)
+            {
+                return;
+            }
+        }
+
+        private void nGAYDateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pHATSINHDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            checkCountPN();
+        }
+        private void checkCountPN() {
+            if (cT_PHATSINHBindingSource.Count > 0)
+            {
+                suaCTPNBtn.Enabled = true;
+                xoaCTPNBtn.Enabled = true;
+            }
+            else
+            {
+                suaCTPNBtn.Enabled = false;
+                xoaCTPNBtn.Enabled = false;
+            }
+        }
+
+        private void pHATSINHDataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            checkCountPX();
+        }
+        private void checkCountPX() {
+
+            if (cT_PHATSINHBindingSource.Count > 0)
+            {
+                suaCTPXBtn.Enabled = true;
+                xoaCTPXBtn.Enabled = true;
+            }
+            else
+            {
+                suaCTPXBtn.Enabled = false;
+                xoaCTPXBtn.Enabled = false;
+            }
+        }
+
     }
 }
