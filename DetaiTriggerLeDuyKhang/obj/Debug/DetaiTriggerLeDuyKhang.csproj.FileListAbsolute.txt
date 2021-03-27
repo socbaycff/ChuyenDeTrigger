@@ -1,0 +1,11 @@
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\bin\Debug\DetaiTriggerLeDuyKhang.exe.config
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\bin\Debug\DetaiTriggerLeDuyKhang.exe
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\bin\Debug\DetaiTriggerLeDuyKhang.pdb
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.csprojResolveAssemblyReference.cache
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.PhieuNhapForm.resources
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.PhieuXuatForm.resources
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.Properties.Resources.resources
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.csproj.GenerateResource.Cache
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.exe
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.pdb
+c:\users\socba\documents\visual studio 2015\Projects\DetaiTriggerLeDuyKhang\DetaiTriggerLeDuyKhang\obj\Debug\DetaiTriggerLeDuyKhang.MainForm.resources
