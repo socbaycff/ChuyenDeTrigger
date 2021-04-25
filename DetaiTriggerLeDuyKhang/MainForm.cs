@@ -38,7 +38,7 @@ namespace DetaiTriggerLeDuyKhang
             this.pHATSINHTableAdapter.Fill(this.qLVTDataSet.PHATSINH);
             // TODO: This line of code loads data into the 'qLVTDataSet.VatTu' table. You can move, or remove it, as needed.
             this.vatTuTableAdapter.Fill(this.qLVTDataSet.VatTu);
-            
+
             viewUIVT();
             sP_MaVTChuaNhapComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -167,6 +167,7 @@ namespace DetaiTriggerLeDuyKhang
 
         }
 
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch ((sender as TabControl).SelectedIndex)
@@ -187,7 +188,10 @@ namespace DetaiTriggerLeDuyKhang
                     break;
             }
         }
-        private void viewUIVT() {
+        private void viewUIVT()
+        {
+            checkUpdateDeleteBtnEnable();
+            canChangeTab = true;
             themVTBtn.Enabled = true;
             xoaVTBtn.Enabled = true;
             suaVTBtn.Enabled = true;
@@ -200,7 +204,9 @@ namespace DetaiTriggerLeDuyKhang
             dVTTextBox.Enabled = false;
             sOLUONGTONTextBox.Enabled = false;
         }
-        private void editUIVT() {
+        private void editUIVT()
+        {
+            canChangeTab = false;
             themVTBtn.Enabled = false;
             xoaVTBtn.Enabled = false;
             suaVTBtn.Enabled = false;
@@ -216,6 +222,8 @@ namespace DetaiTriggerLeDuyKhang
 
         private void addUIVT()
         { // chua tao them update va add khac cho id cho sua
+            
+            canChangeTab = false;
             themVTBtn.Enabled = false;
             xoaVTBtn.Enabled = false;
             suaVTBtn.Enabled = false;
@@ -250,15 +258,16 @@ namespace DetaiTriggerLeDuyKhang
                 mAVTTextBox.Focus();
                 return;
             }
-            if (sOLUONGTONTextBox.Text.Trim() == "") 
+            if (sOLUONGTONTextBox.Text.Trim() == "")
             {
                 MessageBox.Show("Số lượng tồn không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 mAVTTextBox.Focus();
                 return;
             }
 
-          
-            if (isInsertVT) {
+
+            if (isInsertVT)
+            {
                 if (mAVTTextBox.Text.Trim() == "")
                 {
                     MessageBox.Show("Ma vật tư không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -274,7 +283,7 @@ namespace DetaiTriggerLeDuyKhang
                 }
 
             }
-            
+
 
             vatTuBindingSource.EndEdit();
             vatTuBindingSource.ResetCurrentItem();
@@ -294,14 +303,17 @@ namespace DetaiTriggerLeDuyKhang
             {
                 MessageBox.Show($"Vật tư {mAVTTextBox.Text} {tENVTTextBox.Text} đã tạo phiếu nên không thể xóa :3", "Lỗi xóa vật tư", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else {
-                if (MessageBox.Show("Bạn có thật sự muốn xóa vật tư này ?? ", "Xác nhận", MessageBoxButtons.OKCancel) == DialogResult.OK) {
+            else
+            {
+                if (MessageBox.Show("Bạn có thật sự muốn xóa vật tư này ?? ", "Xác nhận", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
                     string delMaNV = "";
                     try
-                    {                
+                    {
                         delMaNV = ((DataRowView)vatTuBindingSource[vatTuBindingSource.Position])["MAVT"].ToString();
                         vatTuBindingSource.RemoveCurrent();
                         this.vatTuTableAdapter.Update(this.qLVTDataSet.VatTu);
+                        checkUpdateDeleteBtnEnable();
                     }
                     catch (Exception exception)
                     {
@@ -309,11 +321,55 @@ namespace DetaiTriggerLeDuyKhang
                         this.vatTuTableAdapter.Fill(this.qLVTDataSet.VatTu);
                         vatTuBindingSource.Position = vatTuBindingSource.Find("MAVT", delMaNV);
                     }
-                    
+
                 }
-                    
+
             }
-            
+
+        }
+
+        private void checkUpdateDeleteBtnEnable()
+        {
+            // kiem tra bat tat delete, update btn
+            if (vatTuBindingSource.Count == 0)
+            {
+                suaVTBtn.Enabled = false;
+                xoaVTBtn.Enabled = false;
+            }
+            else
+            {
+                suaVTBtn.Enabled = true;
+                xoaVTBtn.Enabled = true;
+            }
+        }
+
+        private void checkPN1UpdateDeleteBtnEnable()
+        {
+            // kiem tra bat tat delete, update btn
+            if (pHATSINHBindingSource.Count == 0)
+            {
+                suaPNBtn.Enabled = false;
+                xoaPNBtn.Enabled = false;
+            }
+            else
+            {
+                suaPNBtn.Enabled = true;
+                xoaPNBtn.Enabled = true;
+            }
+        }
+        private void checkPXUpdateDeleteBtnEnable()
+        {
+            // kiem tra bat tat delete, update btn
+            if (pHATSINHBindingSource.Count == 0)
+            {
+                suaPXBtn.Enabled = false;
+                xoaPXBtn.Enabled = false;
+            }
+            else
+            {
+                suaPXBtn.Enabled = true;
+                xoaPXBtn.Enabled = true;
+            }
         }
 
         private void refreshVTBtn_Click(object sender, EventArgs e)
@@ -331,32 +387,40 @@ namespace DetaiTriggerLeDuyKhang
 
         private void viewUIPN()
         {
+            checkPN1UpdateDeleteBtnEnable();
+            canChangeTab = true;
             huyPNBth.Enabled = false;
             refreshPNBtn.Enabled = true;
             PNActionPanel.Enabled = true;
             luuPNBtn.Enabled = false;
             pHIEUTextBox.Enabled = true;
             inputPNPanel.Enabled = false;
-            
+            ctpnActionPanel.Enabled = true;
         }
+
         private void editUIPN()
         { // chua tao them update va add khac cho id cho sua
+            canChangeTab = false;
             huyPNBth.Enabled = true;
             refreshPNBtn.Enabled = false;
             PNActionPanel.Enabled = false;
             luuPNBtn.Enabled = true;
             inputPNPanel.Enabled = true;
-            pHIEUTextBox.Enabled = false;  
+            pHIEUTextBox.Enabled = false;
+            ctpnActionPanel.Enabled = false;
+
         }
 
         private void addUIPN()
         { // chua tao them update va add khac cho id cho sua
+            canChangeTab = false;
             huyPNBth.Enabled = true;
             refreshPNBtn.Enabled = false;
             PNActionPanel.Enabled = false;
             luuPNBtn.Enabled = true;
             inputPNPanel.Enabled = true;
             pHIEUTextBox.Enabled = true;
+            ctpnActionPanel.Enabled = false;
         }
 
         private void themPNBtn_Click(object sender, EventArgs e)
@@ -405,7 +469,8 @@ namespace DetaiTriggerLeDuyKhang
                     return;
                 }
             }
-            else {
+            else
+            {
                 if (cT_PHATSINHBindingSource.Count > 0) // chi kt khi da co ct
                 {
                     if (sOLUONGTextBox.Text.Trim() == "")
@@ -421,21 +486,31 @@ namespace DetaiTriggerLeDuyKhang
                         return;
                     }
                 }
-                    
+
             }
 
-           
-            cT_PHATSINHBindingSource.EndEdit();
-            cT_PHATSINHBindingSource.ResetCurrentItem();
-            this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH); // xuong db
-            viewUICTPN();
 
-            pHATSINHBindingSource.EndEdit();
-            pHATSINHBindingSource.ResetCurrentItem();
-            this.pHATSINHTableAdapter.Update(this.qLVTDataSet.PHATSINH); // xuong db
-            viewUIPN();
+            try
+            {
+                cT_PHATSINHBindingSource.EndEdit();
+                cT_PHATSINHBindingSource.ResetCurrentItem();
+                this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH); // xuong db
+                viewUICTPN();
 
-            
+                pHATSINHBindingSource.EndEdit();
+                pHATSINHBindingSource.ResetCurrentItem();
+                this.pHATSINHTableAdapter.Update(this.qLVTDataSet.PHATSINH); // xuong db
+                viewUIPN();
+            }
+            catch
+            {
+                MessageBox.Show("So luong vat tu nhap sai");
+                return;
+            }
+
+
+
+
 
         }
 
@@ -461,6 +536,7 @@ namespace DetaiTriggerLeDuyKhang
                         delMaNV = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
                         pHATSINHBindingSource.RemoveCurrent();
                         this.pHATSINHTableAdapter.Update(this.qLVTDataSet.PHATSINH);
+                        checkPN1UpdateDeleteBtnEnable();
                     }
                     catch (Exception exception)
                     {
@@ -473,10 +549,6 @@ namespace DetaiTriggerLeDuyKhang
             }
         }
 
-        private void vatTuDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
@@ -501,6 +573,8 @@ namespace DetaiTriggerLeDuyKhang
 
         private void viewUICTPN()
         {
+            checkCTPNDeleteUpdateBtnEnable();
+            canChangeTab = true;
             refreshPNBtn.Enabled = true;
             ctpnActionPanel.Enabled = true;
             luuPNBtn.Enabled = false;
@@ -509,8 +583,25 @@ namespace DetaiTriggerLeDuyKhang
             InputCTPNPanel.Enabled = false;
             sP_MaVTChuaNhapComboBox.Enabled = false;
         }
+
+        private void checkCTPNDeleteUpdateBtnEnable()
+        {
+            // kiem tra bat tat delete, update btn
+            if (cT_PHATSINHBindingSource.Count == 0)
+            {
+                xoaCTPNBtn.Enabled = false;
+                suaCTPNBtn.Enabled = false;
+            }
+            else
+            {
+                xoaCTPNBtn.Enabled = true;
+                suaCTPNBtn.Enabled = true;
+            }
+        }
+
         private void editUICTPN()
         {
+            canChangeTab = false;
             huyPNBth.Enabled = true;
             refreshPNBtn.Enabled = false;
             ctpnActionPanel.Enabled = false;
@@ -519,11 +610,12 @@ namespace DetaiTriggerLeDuyKhang
             InputCTPNPanel.Enabled = true;
             pHIEUTextBox1.Enabled = false;
             mAVTTextBox1.Enabled = false;
-          
+
         }
 
         private void addUICTPN()
         { // chua tao them update va add khac cho id cho sua
+            canChangeTab = false;
             huyPNBth.Enabled = true;
             luuPNBtn.Enabled = true;
             refreshPNBtn.Enabled = false;
@@ -537,22 +629,24 @@ namespace DetaiTriggerLeDuyKhang
 
         private void themCTPNBtn_Click(object sender, EventArgs e)
         {
-           
+            
             String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
             this.sP_MaVTChuaNhapTableAdapter.Fill(this.qLVTDataSet.SP_MaVTChuaNhap, phieu);
             // kiem tra con vat tu trong cho phieu hay k
             //khong thi return
             // con thi di tiep
-            if (sP_MaVTChuaNhapBindingSource.Count <= 0) {
+            if (sP_MaVTChuaNhapBindingSource.Count <= 0)
+            {
                 MessageBox.Show("Khong con vat tu nao chua tao cho phieu nay");
                 return;
-                }
+            }
             addUICTPN();
             cT_PHATSINHBindingSource.AddNew();
             sP_MaVTChuaNhapComboBox.SelectedIndex = 0;
             ((DataRowView)cT_PHATSINHBindingSource[cT_PHATSINHBindingSource.Position])["PHIEU"] = phieu;
             isInsertCTPN = true;
-           
+            checkCountPN();
+
         }
 
         private void suaCTPNBtn_Click(object sender, EventArgs e)
@@ -572,12 +666,13 @@ namespace DetaiTriggerLeDuyKhang
                     cT_PHATSINHBindingSource.RemoveCurrent();
                     this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH);
                     checkCountPN();
+
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show($"Xóa vật tư không thành công :3 {exception.Message}", "Lỗi khi xóa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     refreshPNBtn.PerformClick();
-                   // cT_PHATSINHBindingSource.Position = cT_PHATSINHBindingSource.Find("PHIEU", delMaNV);
+                    // cT_PHATSINHBindingSource.Position = cT_PHATSINHBindingSource.Find("PHIEU", delMaNV);
                 }
 
             }
@@ -595,38 +690,50 @@ namespace DetaiTriggerLeDuyKhang
 
         private void viewUIPX()
         {
+            checkPXTabDeleteUpdateBtnEnable();
+            canChangeTab = true;
             huyPXBtn.Enabled = false;
             refreshPXBtn.Enabled = true;
             PXActionPanel.Enabled = true;
             luuPXBtn.Enabled = false;
             pHIEUTextBox2.Enabled = true;
             pxInputPanel.Enabled = false;
-
+            PXActionPanel.Enabled = true;
         }
         private void editUIPX()
         { // chua tao them update va add khac cho id cho sua
+            canChangeTab = false;
             huyPXBtn.Enabled = true;
             refreshPXBtn.Enabled = false;
             PXActionPanel.Enabled = false;
             luuPXBtn.Enabled = true;
             pxInputPanel.Enabled = true;
             pHIEUTextBox2.Enabled = false;
+            PXActionPanel.Enabled = false;
         }
 
         private void addUIPX()
         { // chua tao them update va add khac cho id cho sua
+            canChangeTab = false;
             huyPXBtn.Enabled = true;
             refreshPXBtn.Enabled = false;
             PXActionPanel.Enabled = false;
             luuPXBtn.Enabled = true;
             pxInputPanel.Enabled = true;
             pHIEUTextBox2.Enabled = true;
+            PXActionPanel.Enabled = false;
         }
 
         private void refreshPXBtn_Click(object sender, EventArgs e)
         {
+            checkPXTabDeleteUpdateBtnEnable();
             this.pHATSINHTableAdapter.XuatQuerry(this.qLVTDataSet.PHATSINH);
             this.cT_PHATSINHTableAdapter.Fill(this.qLVTDataSet.CT_PHATSINH);
+        }
+
+        private void checkPXTabDeleteUpdateBtnEnable()
+        {
+
         }
 
         private void themPXBtn_Click(object sender, EventArgs e)
@@ -677,7 +784,8 @@ namespace DetaiTriggerLeDuyKhang
             }
             else
             {
-                if (cT_PHATSINHBindingSource.Count > 0) {
+                if (cT_PHATSINHBindingSource.Count > 0)
+                {
                     if (sOLUONGTextBox1.Text.Trim() == "")
                     {
                         MessageBox.Show("Số lượng không được để trống", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -691,30 +799,41 @@ namespace DetaiTriggerLeDuyKhang
                         return;
                     }
                 }
-                
-            }
-            cT_PHATSINHBindingSource.EndEdit();
-            cT_PHATSINHBindingSource.ResetCurrentItem();
-            this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH); // xuong db
-            viewUICTPX();
 
-            pHATSINHBindingSource.EndEdit();
-            pHATSINHBindingSource.ResetCurrentItem();
-            this.pHATSINHTableAdapter.Update(this.qLVTDataSet.PHATSINH); // xuong db
-            viewUIPX();
+            }
+            try
+            {
+                cT_PHATSINHBindingSource.EndEdit();
+                cT_PHATSINHBindingSource.ResetCurrentItem();
+                this.cT_PHATSINHTableAdapter.Update(this.qLVTDataSet.CT_PHATSINH); // xuong db
+                viewUICTPX();
+
+                pHATSINHBindingSource.EndEdit();
+                pHATSINHBindingSource.ResetCurrentItem();
+                this.pHATSINHTableAdapter.Update(this.qLVTDataSet.PHATSINH); // xuong db
+                viewUIPX();
+            }
+            catch
+            {
+                MessageBox.Show("So luong vat tu nhap sai");
+                return;
+            }
+
         }
 
         private void huyPXBtn_Click(object sender, EventArgs e)
         {
+
             pHATSINHBindingSource.CancelEdit();
             refreshPXBtn.PerformClick();
             viewUIPX();
 
             cT_PHATSINHBindingSource.CancelEdit();
             viewUICTPX();
+            refreshPXBtn.PerformClick();
         }
 
-     
+
         private void suaPXBtn_Click(object sender, EventArgs e)
         {
             editUIPX();
@@ -737,6 +856,7 @@ namespace DetaiTriggerLeDuyKhang
                         delMaNV = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
                         pHATSINHBindingSource.RemoveCurrent();
                         this.pHATSINHTableAdapter.Update(this.qLVTDataSet.PHATSINH);
+                        checkPXTabDeleteUpdateBtnEnable();
                     }
                     catch (Exception exception)
                     {
@@ -751,6 +871,8 @@ namespace DetaiTriggerLeDuyKhang
 
         private void viewUICTPX()
         {
+            checkCountPX();
+            canChangeTab = true;
             huyPXBtn.Enabled = false;
             refreshPXBtn.Enabled = true;
             ctpxActionPanel.Enabled = true;
@@ -762,6 +884,7 @@ namespace DetaiTriggerLeDuyKhang
         }
         private void editUICTPX()
         {
+            canChangeTab = false;
             huyPXBtn.Enabled = true;
             refreshPXBtn.Enabled = false;
             ctpxActionPanel.Enabled = false;
@@ -775,6 +898,7 @@ namespace DetaiTriggerLeDuyKhang
 
         private void addUICTPX()
         { // chua tao them update va add khac cho id cho sua
+            canChangeTab = false;
             huyPXBtn.Enabled = true;
             luuPXBtn.Enabled = true;
             refreshPXBtn.Enabled = false;
@@ -801,7 +925,7 @@ namespace DetaiTriggerLeDuyKhang
             addUICTPX();
             cT_PHATSINHBindingSource.AddNew();
             ((DataRowView)cT_PHATSINHBindingSource[cT_PHATSINHBindingSource.Position])["PHIEU"] = phieu;
-           
+
         }
 
         private void xoaCTPXBtn_Click(object sender, EventArgs e)
@@ -862,7 +986,7 @@ namespace DetaiTriggerLeDuyKhang
 
         private void sP_MaVTChuaNhapComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-           
+
             try
             {
                 mAVTTextBox1.Text = sP_MaVTChuaNhapComboBox.SelectedValue.ToString();
@@ -877,7 +1001,8 @@ namespace DetaiTriggerLeDuyKhang
         {
             try
             {
-                mAVTTextBox2.Text = sP_MaVTChuaNhapComboBox.SelectedValue.ToString();
+                String a = comboBox1.SelectedValue.ToString();
+                mAVTTextBox2.Text = a;
             }
             catch (Exception nullRef)
             {
@@ -894,8 +1019,12 @@ namespace DetaiTriggerLeDuyKhang
         {
             checkCountPN();
         }
-        private void checkCountPN() {
-            if (cT_PHATSINHBindingSource.Count > 0)
+        private void checkCountPN()
+        {
+            // lay phieu hien tai
+            String phieu = ((DataRowView)pHATSINHBindingSource[pHATSINHBindingSource.Position])["PHIEU"].ToString();
+
+            if (cT_PHATSINHBindingSource.Count >0)
             {
                 suaCTPNBtn.Enabled = true;
                 xoaCTPNBtn.Enabled = true;
@@ -911,7 +1040,8 @@ namespace DetaiTriggerLeDuyKhang
         {
             checkCountPX();
         }
-        private void checkCountPX() {
+        private void checkCountPX()
+        {
 
             if (cT_PHATSINHBindingSource.Count > 0)
             {
@@ -924,6 +1054,44 @@ namespace DetaiTriggerLeDuyKhang
                 xoaCTPXBtn.Enabled = false;
             }
         }
+        private bool canChangeTab = true;
+        private void VatTuTab_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (!canChangeTab)
+            {
+                e.Cancel = true;
+            }
+        }
 
+
+        private void pHATSINHDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // kiem tra bat tat delete, update btn
+            if (cT_PHATSINHBindingSource.Count == 0)
+            {
+                suaCTPNBtn.Enabled = false;
+                xoaCTPNBtn.Enabled = false;
+            }
+            else
+            {
+                suaCTPNBtn.Enabled = true;
+                xoaCTPNBtn.Enabled = true;
+            }
+        }
+
+        private void pHATSINHDataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // kiem tra bat tat delete, update btn
+            if (cT_PHATSINHBindingSource.Count == 0)
+            {
+                suaCTPXBtn.Enabled = false;
+                xoaCTPXBtn.Enabled = false;
+            }
+            else
+            {
+                suaCTPXBtn.Enabled = true;
+                xoaCTPXBtn.Enabled = true;
+            }
+        }
     }
 }
